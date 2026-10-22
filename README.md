@@ -33,7 +33,7 @@ egword の書き出しテキストから、縦書きの EPUB3 を作るアプリ
 
 | 形 | 動く場所 | 入れるもの |
 |---|---|---|
-| [ブラウザ版](https://（ユーザー名）.github.io/egword2epub/) | パソコンやスマホ（Android など）のブラウザ | なし。開くだけ |
+| [ブラウザ版](https://ktomoyukigit.github.io/egword2epub/) | パソコンやスマホ（Android など）のブラウザ | なし。開くだけ |
 | デスクトップのアプリ | Mac（Windows・Linux でも組み立てられる） | 組み立てに Rust |
 | コマンド | どこでも | 組み立てに Rust |
 
