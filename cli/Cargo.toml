@@ -1,0 +1,12 @@
+[package]
+name = "egword2epub-rs"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[[bin]]
+name = "egword2epub-rs"
+path = "src/main.rs"
+
+[dependencies]
+egword_core = { path = "../core" }

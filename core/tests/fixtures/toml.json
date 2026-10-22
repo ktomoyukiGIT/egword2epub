@@ -1,0 +1,623 @@
+{
+"good": [
+{
+"text": "[book]\ntitle = \"機能の見本\"\ndate = \"2026-10-19\"\npublisher = \"見本の版元\"\n[[book.creators]]\nname = \"見本　太郎\"\nrole = \"aut\"\n[colophon]\nlines = [\"この本は egword2epub の機能の見本です。\"]\n",
+"expected": {
+"t": "table",
+"keys": [
+"book",
+"colophon"
+],
+"v": {
+"book": {
+"t": "table",
+"keys": [
+"title",
+"date",
+"publisher",
+"creators"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "機能の見本"
+},
+"date": {
+"t": "string",
+"v": "2026-10-19"
+},
+"publisher": {
+"t": "string",
+"v": "見本の版元"
+},
+"creators": {
+"t": "array",
+"v": [
+{
+"t": "table",
+"keys": [
+"name",
+"role"
+],
+"v": {
+"name": {
+"t": "string",
+"v": "見本　太郎"
+},
+"role": {
+"t": "string",
+"v": "aut"
+}
+}
+}
+]
+}
+}
+},
+"colophon": {
+"t": "table",
+"keys": [
+"lines"
+],
+"v": {
+"lines": {
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "この本は egword2epub の機能の見本です。"
+}
+]
+}
+}
+}
+}
+}
+},
+{
+"text": "writing_mode = \"horizontal\"\n[book]\ntitle = \"吾輩は猫である（横書き見本）\"\n",
+"expected": {
+"t": "table",
+"keys": [
+"writing_mode",
+"book"
+],
+"v": {
+"writing_mode": {
+"t": "string",
+"v": "horizontal"
+},
+"book": {
+"t": "table",
+"keys": [
+"title"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "吾輩は猫である（横書き見本）"
+}
+}
+}
+}
+}
+},
+{
+"text": "writing_mode = \"vertical\"      # vertical（縦書き、既定）/ horizontal（横書き）\n#css               # 設定ファイルからの相対パス。省略すると同梱の default.css\nautolink = [\"url\", \"mail\"]     # 自動リンクの対象（url / mail / x）\n\n[book]\ntitle = \"書名\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:…\"      # 決めておくと、改訂版が同じ本として扱われる。省略すると毎回新しく作る\nlanguage = \"ja\"\npublisher = \"発行者\"\ndate = \"2026-10-19\"            # この形で書く\ndescription = \"説明文\"\n\n[[book.creators]]\nname = \"著者名\"\nrole = \"aut\"                   # aut 著 / trl 訳 / edt 編 / ill 絵\nfile_as = \"ちょしゃめい\"\n\n[notes.footnote]               # 脚注\nformat = \"※1\"                  # ※1 ＊1 注1 [1] 1] none\nlabel = \"脚注\"                 # EPUB の注の欄の見出し\nheading_lines = []             # テキストで注の並びの始まりを示す行（取り除く）\n\n[notes.endnote]                # 文末注\nformat = \"[1]\"\nlabel = \"文末注\"\nheading_lines = []\n\n[colophon]                     # 書くと最後に奥付の頁を作り、目次に載せる\nlines = [\"底本：……\"]\n",
+"expected": {
+"t": "table",
+"keys": [
+"writing_mode",
+"autolink",
+"book",
+"notes",
+"colophon"
+],
+"v": {
+"writing_mode": {
+"t": "string",
+"v": "vertical"
+},
+"autolink": {
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "url"
+},
+{
+"t": "string",
+"v": "mail"
+}
+]
+},
+"book": {
+"t": "table",
+"keys": [
+"title",
+"title_file_as",
+"identifier",
+"language",
+"publisher",
+"date",
+"description",
+"creators"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "書名"
+},
+"title_file_as": {
+"t": "string",
+"v": "しょめい"
+},
+"identifier": {
+"t": "string",
+"v": "urn:uuid:…"
+},
+"language": {
+"t": "string",
+"v": "ja"
+},
+"publisher": {
+"t": "string",
+"v": "発行者"
+},
+"date": {
+"t": "string",
+"v": "2026-10-19"
+},
+"description": {
+"t": "string",
+"v": "説明文"
+},
+"creators": {
+"t": "array",
+"v": [
+{
+"t": "table",
+"keys": [
+"name",
+"role",
+"file_as"
+],
+"v": {
+"name": {
+"t": "string",
+"v": "著者名"
+},
+"role": {
+"t": "string",
+"v": "aut"
+},
+"file_as": {
+"t": "string",
+"v": "ちょしゃめい"
+}
+}
+}
+]
+}
+}
+},
+"notes": {
+"t": "table",
+"keys": [
+"footnote",
+"endnote"
+],
+"v": {
+"footnote": {
+"t": "table",
+"keys": [
+"format",
+"label",
+"heading_lines"
+],
+"v": {
+"format": {
+"t": "string",
+"v": "※1"
+},
+"label": {
+"t": "string",
+"v": "脚注"
+},
+"heading_lines": {
+"t": "array",
+"v": []
+}
+}
+},
+"endnote": {
+"t": "table",
+"keys": [
+"format",
+"label",
+"heading_lines"
+],
+"v": {
+"format": {
+"t": "string",
+"v": "[1]"
+},
+"label": {
+"t": "string",
+"v": "文末注"
+},
+"heading_lines": {
+"t": "array",
+"v": []
+}
+}
+}
+}
+},
+"colophon": {
+"t": "table",
+"keys": [
+"lines"
+],
+"v": {
+"lines": {
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "底本：……"
+}
+]
+}
+}
+}
+}
+}
+},
+{
+"text": "# egword2epub の設定ファイル\n[book]\ntitle = \"猫\"\nidentifier = \"urn:uuid:04594041-4340-4b74-a78c-82785ed3196f\"\nlanguage = \"ja\"\ndate = \"2026-10-20\"\n\n[[book.creators]]\nname = \"夏目漱石\"\nrole = \"aut\"\n\n[notes.endnote]\nformat = \"none\"\n",
+"expected": {
+"t": "table",
+"keys": [
+"book",
+"notes"
+],
+"v": {
+"book": {
+"t": "table",
+"keys": [
+"title",
+"identifier",
+"language",
+"date",
+"creators"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "猫"
+},
+"identifier": {
+"t": "string",
+"v": "urn:uuid:04594041-4340-4b74-a78c-82785ed3196f"
+},
+"language": {
+"t": "string",
+"v": "ja"
+},
+"date": {
+"t": "string",
+"v": "2026-10-20"
+},
+"creators": {
+"t": "array",
+"v": [
+{
+"t": "table",
+"keys": [
+"name",
+"role"
+],
+"v": {
+"name": {
+"t": "string",
+"v": "夏目漱石"
+},
+"role": {
+"t": "string",
+"v": "aut"
+}
+}
+}
+]
+}
+}
+},
+"notes": {
+"t": "table",
+"keys": [
+"endnote"
+],
+"v": {
+"endnote": {
+"t": "table",
+"keys": [
+"format"
+],
+"v": {
+"format": {
+"t": "string",
+"v": "none"
+}
+}
+}
+}
+}
+}
+}
+},
+{
+"text": "# いろいろな書き方\ntitle = \"引用\\\"と\\t\" # 後ろのコメント\nlit = 'C:\\path\\x'\nre = 'ch(\\d+)\\.jpg'\nn = 1_000\nf = 1.5\nneg = -3\nb = false\nd = 2026-10-19\ndt = 1979-05-27T07:32:00Z\narr = [\n  \"a\", # コメント\n  \"b\",\n]\nnested = [[1, 2], [\"x\"]]\ninline = { a = 1, b.c = \"d\" }\nml = \"\"\"\n一行目\n二行目\\\n  続き\"\"\"\nmll = '''\n\\生のまま'''\n\"quoted key\" = 1\na.b.c = true\n\n[book]\ntitle = \"書名\"\n\n[[book.creators]]\nname = \"一人目\"\nrole = \"aut\"\n\n[[book.creators]]\nname = \"二人目\"\n\n[notes.footnote]\nformat = \"※1\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"none\"\n",
+"expected": {
+"t": "table",
+"keys": [
+"title",
+"lit",
+"re",
+"n",
+"f",
+"neg",
+"b",
+"d",
+"dt",
+"arr",
+"nested",
+"inline",
+"ml",
+"mll",
+"quoted key",
+"a",
+"book",
+"notes"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "引用\"と\t"
+},
+"lit": {
+"t": "string",
+"v": "C:\\path\\x"
+},
+"re": {
+"t": "string",
+"v": "ch(\\d+)\\.jpg"
+},
+"n": {
+"t": "int",
+"v": 1000
+},
+"f": {
+"t": "double",
+"v": 1.5
+},
+"neg": {
+"t": "int",
+"v": -3
+},
+"b": {
+"t": "bool",
+"v": false
+},
+"d": {
+"t": "date",
+"v": null
+},
+"dt": {
+"t": "date",
+"v": null
+},
+"arr": {
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "a"
+},
+{
+"t": "string",
+"v": "b"
+}
+]
+},
+"nested": {
+"t": "array",
+"v": [
+{
+"t": "array",
+"v": [
+{
+"t": "int",
+"v": 1
+},
+{
+"t": "int",
+"v": 2
+}
+]
+},
+{
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "x"
+}
+]
+}
+]
+},
+"inline": {
+"t": "table",
+"keys": [
+"a",
+"b"
+],
+"v": {
+"a": {
+"t": "int",
+"v": 1
+},
+"b": {
+"t": "table",
+"keys": [
+"c"
+],
+"v": {
+"c": {
+"t": "string",
+"v": "d"
+}
+}
+}
+}
+},
+"ml": {
+"t": "string",
+"v": "一行目\n二行目続き"
+},
+"mll": {
+"t": "string",
+"v": "\\生のまま"
+},
+"quoted key": {
+"t": "int",
+"v": 1
+},
+"a": {
+"t": "table",
+"keys": [
+"b"
+],
+"v": {
+"b": {
+"t": "table",
+"keys": [
+"c"
+],
+"v": {
+"c": {
+"t": "bool",
+"v": true
+}
+}
+}
+}
+},
+"book": {
+"t": "table",
+"keys": [
+"title",
+"creators"
+],
+"v": {
+"title": {
+"t": "string",
+"v": "書名"
+},
+"creators": {
+"t": "array",
+"v": [
+{
+"t": "table",
+"keys": [
+"name",
+"role"
+],
+"v": {
+"name": {
+"t": "string",
+"v": "一人目"
+},
+"role": {
+"t": "string",
+"v": "aut"
+}
+}
+},
+{
+"t": "table",
+"keys": [
+"name"
+],
+"v": {
+"name": {
+"t": "string",
+"v": "二人目"
+}
+}
+}
+]
+}
+}
+},
+"notes": {
+"t": "table",
+"keys": [
+"footnote",
+"endnote"
+],
+"v": {
+"footnote": {
+"t": "table",
+"keys": [
+"format",
+"heading_lines"
+],
+"v": {
+"format": {
+"t": "string",
+"v": "※1"
+},
+"heading_lines": {
+"t": "array",
+"v": [
+{
+"t": "string",
+"v": "※原注"
+},
+{
+"t": "string",
+"v": "＊原注"
+}
+]
+}
+}
+},
+"endnote": {
+"t": "table",
+"keys": [
+"format"
+],
+"v": {
+"format": {
+"t": "string",
+"v": "none"
+}
+}
+}
+}
+}
+}
+}
+}
+],
+"bad": [
+"a = ",
+"a = \"x",
+"a = 1\na = 2",
+"[a\nb=1",
+"a = \"\\q\"",
+"x = [1 2]"
+]
+}

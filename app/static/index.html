@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Egword2EPUB</title>
+<link rel="stylesheet" href="app.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.png">
+<meta name="theme-color" content="#24477a">
+</head>
+<body>
+<header id="toolbar">
+  <div class="group">
+    <button id="btn-new" title="新しいテキスト">新規</button>
+    <button id="btn-open" title="テキストを開く（⌘O / Ctrl+O）">開く</button>
+    <button id="btn-save" title="保存（⌘S / Ctrl+S）">保存</button>
+  </div>
+  <div id="doc-name" class="docname"></div>
+  <div class="group right">
+    <button id="btn-find" title="探す・置き換え（⌘F / Ctrl+F。正規表現も使える）">探す</button>
+    <button id="btn-check" title="変換して、問題を一覧にする（⌘K / Ctrl+K）">調べる</button>
+    <button id="btn-export" class="primary" title="EPUB を書き出す（⇧⌘E / Ctrl+Shift+E）">EPUB を書き出す</button>
+  </div>
+</header>
+
+<div id="settings">
+  <span class="setting"><span class="key">画像</span><span id="img-label" class="val"></span><button id="img-pick" class="small">選ぶ…</button></span>
+  <span class="setting"><span class="key">設定</span><span id="cfg-label" class="val"></span><button id="cfg-pick" class="small">選ぶ…</button><button id="cfg-edit" class="small">新規…</button><button id="cfg-clear" class="small icon" title="設定ファイルを使わない" hidden>×</button></span>
+</div>
+
+<main id="panes">
+  <aside id="palette">
+    <div id="palette-list"></div>
+    <p id="palette-hint">文字を選んでから押すと、その文字に付けます。</p>
+  </aside>
+
+  <section id="edit-pane">
+    <div id="editor"></div>
+    <div id="statusbar"><span id="pos"></span><span id="version"></span></div>
+  </section>
+
+  <section id="preview-pane">
+    <div class="pv-head">
+      <button id="pv-next" class="small icon" title="次の頁（縦書きなので左へ）">‹</button>
+      <button id="pv-prev" class="small icon" title="前の頁">›</button>
+      <span id="pv-name">プレビュー</span>
+      <span class="spacer"></span>
+      <label class="check" title="書く手を止めて少したつと、プレビューを作り直す"><input type="checkbox" id="pv-auto">自動で更新</label>
+      <button id="pv-refresh" class="small" title="プレビューを作り直す">更新</button>
+    </div>
+    <iframe id="preview" title="縦書きのプレビュー"></iframe>
+  </section>
+
+  <section id="problems-pane">
+    <div class="pb-head"><span id="status-msg"></span><span class="spacer"></span><span id="problems-count"></span></div>
+    <div class="pb-scroll">
+      <table id="problems"><thead><tr><th>行</th><th>内容</th></tr></thead><tbody id="problems-body"></tbody></table>
+    </div>
+  </section>
+</main>
+
+<nav id="tabs">
+  <button data-tab="palette">注記</button>
+  <button data-tab="edit">編集</button>
+  <button data-tab="preview">プレビュー</button>
+  <button data-tab="problems" id="tab-problems">問題</button>
+</nav>
+<script type="module" src="app.js"></script>
+</body>
+</html>

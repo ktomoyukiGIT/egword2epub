@@ -1,0 +1,21 @@
+[package]
+name = "egword_core"
+version = "0.1.0"
+edition = "2021"
+description = "Egword の書き出しテキスト（青空文庫形式の注記）を EPUB3 にする変換の本体"
+license = "MIT"
+
+[dependencies]
+fancy-regex = "0.14"
+toml = { version = "0.8", features = ["preserve_order"] }
+indexmap = "2"
+encoding_rs = "0.8"
+miniz_oxide = "0.8"
+uuid = { version = "1", features = ["v4", "js"] }
+getrandom = { version = "0.2", features = ["js"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+indexmap = "2"
+base64 = "0.22"

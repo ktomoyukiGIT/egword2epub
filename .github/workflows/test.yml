@@ -1,0 +1,12 @@
+# 変換のテスト（記録した例と同じ結果になるか）
+name: test
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test -p egword_core -p egword2epub-rs

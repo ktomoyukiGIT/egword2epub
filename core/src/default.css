@@ -1,0 +1,64 @@
+@charset "UTF-8";
+html { writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl; -epub-writing-mode: vertical-rl; }
+body { font-family: serif; line-height: 1.8; margin: 0; }
+p { margin: 0; text-align: justify; }
+p.blank { height: 0; }
+.tcy { text-combine-upright: all; -webkit-text-combine: horizontal; -epub-text-combine: horizontal; }
+.bold { font-weight: bold; }
+.bouten { text-emphasis-style: sesame; -webkit-text-emphasis-style: sesame; -epub-text-emphasis-style: sesame; }
+.gn, .tn { text-decoration: none; font-size: 0.7em; }
+a.back { text-decoration: none; font-weight: bold; }
+.notes { margin-right: 3em; font-size: 0.85em; }
+.notes h2 { font-size: 1.1em; margin-left: 1em; }
+.note p.nh { text-indent: -2em; margin-top: 2em; }
+.note p.nc { text-indent: 0; margin-top: 2em; }
+.note { margin-left: 0.6em; }
+/* 図版：一頁に収める */
+html.hz { writing-mode: horizontal-tb; -webkit-writing-mode: horizontal-tb; -epub-writing-mode: horizontal-tb; }
+body.figpage { text-align: center; }
+.fig { margin: 0; text-align: center; }
+.fig img { max-width: 100%; max-height: 90vh; height: auto; }
+.fig figcaption { font-size: 0.8em; margin-top: 0.5em; line-height: 1.5; }
+body.cover { margin: 0; padding: 0; text-align: center; }
+body.cover svg { display: block; width: 100%; height: 100vh; }
+/* 頁の左右中央（対応しないアプリでは通常の位置に組まれる） */
+body.center { width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+body.center .centerbox { width: auto; }
+/* 横組みの段落（原詩など） */
+.yoko { writing-mode: horizontal-tb; -webkit-writing-mode: horizontal-tb; -epub-writing-mode: horizontal-tb; margin: 1em 2em; font-family: serif; line-height: 1.6; }
+.yoko p { text-align: left; }
+/* 区切り線（縦書きでは縦の短い線を天地中央に） */
+.sep { width: 0; margin: auto 1em; }
+a.ext { text-decoration: none; word-break: break-all; }
+/* 目次 */
+nav#toc ol { list-style: none; margin: 0; padding: 0; }
+nav#toc li { margin: 0; }
+nav#toc a { text-decoration: none; }
+/* 見出し（［＃大見出し］など） */
+h2.o-midashi, h3.naka-midashi, h4.ko-midashi { font-weight: bold; margin-bottom: 0; line-height: 1.5; }
+h2.o-midashi { font-size: 1.5em; margin-left: 2em; }
+h3.naka-midashi { font-size: 1.25em; margin-left: 1.5em; }
+h4.ko-midashi { font-size: 1.05em; margin-left: 1em; }
+/* ［＃目次］で作る目次 */
+.tocpage p { text-indent: 0; }
+.tocpage a { text-decoration: none; }
+.tocpage p.toc1 { margin-top: 0; }
+.tocpage p.toc2 { margin-top: 2em; }
+.tocpage p.toc3 { margin-top: 4em; }
+/* 文字飾り（［＃「X」に白ゴマ傍点］［＃傍線］…［＃傍線終わり］など） */
+.bouten-wsesame { text-emphasis-style: open sesame; -webkit-text-emphasis-style: open sesame; -epub-text-emphasis-style: open sesame; }
+.bouten-circle { text-emphasis-style: filled circle; -webkit-text-emphasis-style: filled circle; -epub-text-emphasis-style: filled circle; }
+.bouten-wcircle { text-emphasis-style: open circle; -webkit-text-emphasis-style: open circle; -epub-text-emphasis-style: open circle; }
+.bosen, .bosen-double, .bosen-dotted, .bosen-dashed, .bosen-wave { text-decoration: underline; -webkit-text-underline-position: right; text-underline-position: right; -epub-text-underline-position: right; }
+.bosen-double { text-decoration-style: double; }
+.bosen-dotted { text-decoration-style: dotted; }
+.bosen-dashed { text-decoration-style: dashed; }
+.bosen-wave { text-decoration-style: wavy; }
+.italic { font-style: italic; }
+/* 文字の大小（［＃１段階小さな文字］など） */
+.sho1 { font-size: 0.9em; } .sho2 { font-size: 0.8em; } .sho3 { font-size: 0.7em; }
+.dai1 { font-size: 1.15em; } .dai2 { font-size: 1.3em; } .dai3 { font-size: 1.5em; }
+/* 奥付（設定の [colophon]） */
+.colophon { margin-right: 2em; }
+.colophon p { text-indent: 0; }
+.colophon p.col-title { font-weight: bold; font-size: 1.1em; margin-left: 1em; }

@@ -1,0 +1,15 @@
+# egword2epub の設定ファイル（見本）
+[book]
+title = "吾輩は猫である"
+title_file_as = "わがはいはねこである"
+identifier = "urn:uuid:5b0c8f2e-6d0e-4b8f-9a35-2f1f6c0d7a11"
+language = "ja"
+date = "2026-10-22"
+
+[[book.creators]]
+name = "夏目漱石"
+role = "aut"
+file_as = "なつめ そうせき"
+
+[colophon]
+lines = ["底本：夏目漱石「吾輩は猫である」（青空文庫）"]

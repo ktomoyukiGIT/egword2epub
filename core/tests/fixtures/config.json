@@ -1,0 +1,957 @@
+[
+ {
+  "name": "empty",
+  "text": "",
+  "form": {
+   "title": "",
+   "title_file_as": "",
+   "publisher": "",
+   "date": "",
+   "description": "",
+   "identifier": "",
+   "language": "ja",
+   "creators": [
+    {
+     "name": "",
+     "role": "aut",
+     "file_as": "",
+     "src": null
+    }
+   ],
+   "writing_mode": "vertical",
+   "css": "",
+   "autolink": [
+    "url",
+    "mail"
+   ],
+   "footnote": {
+    "format": "※1",
+    "label": "脚注",
+    "heading_lines": ""
+   },
+   "endnote": {
+    "format": "[1]",
+    "label": "文末注",
+    "heading_lines": ""
+   },
+   "guess_periodicals": false,
+   "squeeze_blank_lines": false,
+   "chapter_image": "",
+   "cover_image": "",
+   "colophon": false,
+   "colophon_title": "",
+   "colophon_date_label": "",
+   "colophon_lines": ""
+  },
+  "problems": [],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\n\n",
+    "problems": []
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"新しい書名\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n",
+    "problems": []
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\n",
+    "problems": []
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\n",
+    "problems": [
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\n\n",
+    "problems": []
+   }
+  ]
+ },
+ {
+  "name": "minimal",
+  "text": "[book]\ntitle = \"短い本\"\n",
+  "form": {
+   "title": "短い本",
+   "title_file_as": "",
+   "publisher": "",
+   "date": "",
+   "description": "",
+   "identifier": "",
+   "language": "ja",
+   "creators": [
+    {
+     "name": "",
+     "role": "aut",
+     "file_as": "",
+     "src": null
+    }
+   ],
+   "writing_mode": "vertical",
+   "css": "",
+   "autolink": [
+    "url",
+    "mail"
+   ],
+   "footnote": {
+    "format": "※1",
+    "label": "脚注",
+    "heading_lines": ""
+   },
+   "endnote": {
+    "format": "[1]",
+    "label": "文末注",
+    "heading_lines": ""
+   },
+   "guess_periodicals": false,
+   "squeeze_blank_lines": false,
+   "chapter_image": "",
+   "cover_image": "",
+   "colophon": false,
+   "colophon_title": "",
+   "colophon_date_label": "",
+   "colophon_lines": ""
+  },
+  "problems": [],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"短い本\"\n",
+    "problems": []
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"新しい書名\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n",
+    "problems": []
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"短い本\"\n\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\n",
+    "problems": []
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\n\n[book]\ntitle = \"短い本\"\n",
+    "problems": [
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"短い本\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"短い本\"\n\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\n[book]\ntitle = \"短い本\"\n",
+    "problems": []
+   }
+  ]
+ },
+ {
+  "name": "full",
+  "text": "# 書名などの設定\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = 'ch(\\d+)\\.jpg'\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = 2026-10-19\ndescription = \"\"\"二行の\n説明\"\"\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = \"＊訳注\"\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+  "form": {
+   "title": "書名「引用」\\と\"記号\"",
+   "title_file_as": "しょめい",
+   "publisher": "出版社",
+   "date": "2026-10-19",
+   "description": "二行の\n説明",
+   "identifier": "urn:uuid:12345678-1234-1234-1234-123456789abc",
+   "language": "ja",
+   "creators": [
+    {
+     "name": "ヘンリー・サヴェージ",
+     "role": "aut",
+     "file_as": "サヴェージ, ヘンリー",
+     "src": 0
+    },
+    {
+     "name": "訳者",
+     "role": "trl",
+     "file_as": "",
+     "src": 1
+    }
+   ],
+   "writing_mode": "vertical",
+   "css": "book.css",
+   "autolink": [
+    "url",
+    "mail",
+    "x"
+   ],
+   "footnote": {
+    "format": "※1",
+    "label": "原注",
+    "heading_lines": "※原注 ＊原注"
+   },
+   "endnote": {
+    "format": "[1]",
+    "label": "訳注",
+    "heading_lines": "＊訳注"
+   },
+   "guess_periodicals": true,
+   "squeeze_blank_lines": false,
+   "chapter_image": "ch(\\d+)\\.jpg",
+   "cover_image": "",
+   "colophon": true,
+   "colophon_title": "奥付",
+   "colophon_date_label": "",
+   "colophon_lines": "底本：……\n\n二行目"
+  },
+  "problems": [],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"新しい書名\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nautolink = [\"url\", \"mail\"]\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+    "problems": [
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"none\"\nlabel = \"脚注\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n\n[colophon]\ntitle = \"奥付\"\nlines = [\"底本：……\", \"\", \"二行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"vertical\"\ncss = \"book.css\"\nautolink = [\"url\", \"mail\", \"x\"]\nguess_periodicals = true\nchapter_image = \"ch(\\\\d+)\\\\.jpg\"\n\n[book]\ntitle = \"書名「引用」\\\\と\\\"記号\\\"\"\ntitle_file_as = \"しょめい\"\nidentifier = \"urn:uuid:12345678-1234-1234-1234-123456789abc\"\nlanguage = \"ja\"\npublisher = \"出版社\"\ndate = \"2026-10-19\"\ndescription = \"二行の\\n説明\"\n\n[[book.creators]]\nname = \"ヘンリー・サヴェージ\"\nrole = \"aut\"\nfile_as = \"サヴェージ, ヘンリー\"\n\n[[book.creators]]\nname = \"訳者\"\nrole = \"trl\"\nseq = 2\n\n[notes.footnote]\nformat = \"※1\"\nlabel = \"原注\"\nheading_lines = [\"※原注\", \"＊原注\"]\n\n[notes.endnote]\nformat = \"[1]\"\nlabel = \"訳注\"\nheading_lines = [\"＊訳注\"]\n",
+    "problems": []
+   }
+  ]
+ },
+ {
+  "name": "odd",
+  "text": "squeeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nautolink = []\n\"odd key\" = { \"x y\" = 1.5, d = 2026-01-02, inline = [{ a = 1 }, { b = 2 }] }\nbogus = 1\n[book]\ncreators = [\"名だけ\"]\nlanguage = \"en\"\n[notes.footnote]\nformat = \"none\"\n[notes.endnote]\nformat = \"※1\"\n",
+  "form": {
+   "title": "",
+   "title_file_as": "",
+   "publisher": "",
+   "date": "",
+   "description": "",
+   "identifier": "",
+   "language": "en",
+   "creators": [
+    {
+     "name": "名だけ",
+     "role": "aut",
+     "file_as": "",
+     "src": null
+    }
+   ],
+   "writing_mode": "vertical",
+   "css": "",
+   "autolink": [],
+   "footnote": {
+    "format": "none",
+    "label": "脚注",
+    "heading_lines": ""
+   },
+   "endnote": {
+    "format": "※1",
+    "label": "文末注",
+    "heading_lines": ""
+   },
+   "guess_periodicals": false,
+   "squeeze_blank_lines": true,
+   "chapter_image": "",
+   "cover_image": "表紙.jpg",
+   "colophon": false,
+   "colophon_title": "",
+   "colophon_date_label": "",
+   "colophon_lines": ""
+  },
+  "problems": [
+   "知らない項目があります：bogus、odd key",
+   "1 人目の作者の名前が空です。"
+  ],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\ntitle = \"新しい書名\"\nlanguage = \"ja\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nautolink = [\"url\", \"mail\"]\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key",
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\nautolink = []\nsqueeze_blank_lines = true\ncover_image = \"表紙.jpg\"\nbogus = 1\n\n[book]\nlanguage = \"en\"\n\n[[book.creators]]\nname = \"名だけ\"\nrole = \"aut\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"※1\"\n\n[\"odd key\"]\n\"x y\" = 1.5\nd = 2026-01-02\n\n[[\"odd key\".inline]]\na = 1\n\n[[\"odd key\".inline]]\nb = 2\n",
+    "problems": [
+     "知らない項目があります：bogus、odd key"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "problems",
+  "text": "writing_mode = \"tate\"\nautolink = [\"web\"]\ncss = \"nothing.css\"\n[book]\ndate = \"2026年\"\n[[book.creators]]\nname = \" \"\n[notes.footnote]\nformat = \"[1]\"\n",
+  "form": {
+   "title": "",
+   "title_file_as": "",
+   "publisher": "",
+   "date": "2026年",
+   "description": "",
+   "identifier": "",
+   "language": "ja",
+   "creators": [
+    {
+     "name": " ",
+     "role": "aut",
+     "file_as": "",
+     "src": 0
+    }
+   ],
+   "writing_mode": "tate",
+   "css": "nothing.css",
+   "autolink": [],
+   "footnote": {
+    "format": "[1]",
+    "label": "脚注",
+    "heading_lines": ""
+   },
+   "endnote": {
+    "format": "[1]",
+    "label": "文末注",
+    "heading_lines": ""
+   },
+   "guess_periodicals": false,
+   "squeeze_blank_lines": false,
+   "chapter_image": "",
+   "cover_image": "",
+   "colophon": false,
+   "colophon_title": "",
+   "colophon_date_label": "",
+   "colophon_lines": ""
+  },
+  "problems": [
+   "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+   "autolink に使えるのは url・mail・x です。",
+   "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+   "発行日「2026年」は 2026-10-19 の形で書いてください。",
+   "1 人目の作者の名前が空です。",
+   "脚注と文末注に同じ書式は使えません。"
+  ],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ndate = \"2026年\"\n\n[notes.footnote]\nformat = \"[1]\"\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ntitle = \"新しい書名\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n\n[notes.footnote]\nformat = \"[1]\"\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ndate = \"2026年\"\n\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\n\n[notes.footnote]\nformat = \"[1]\"\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nautolink = [\"url\", \"mail\"]\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\n\n[book]\ndate = \"2026年\"\n\n[notes.footnote]\nformat = \"[1]\"\n",
+    "problems": [
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ndate = \"2026年\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。"
+    ]
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ndate = \"2026年\"\n\n[notes.footnote]\nformat = \"[1]\"\n\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"tate\"\ncss = \"nothing.css\"\nautolink = []\n\n[book]\ndate = \"2026年\"\n\n[notes.footnote]\nformat = \"[1]\"\n",
+    "problems": [
+     "writing_mode は \"vertical\"（縦書き）か \"horizontal\"（横書き）にしてください。",
+     "CSS「nothing.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "発行日「2026年」は 2026-10-19 の形で書いてください。",
+     "脚注と文末注に同じ書式は使えません。"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "horizontal",
+  "text": "writing_mode = \"horizontal\"\n[notes.endnote]\nformat = \"(1)\"\n[colophon]\n",
+  "form": {
+   "title": "",
+   "title_file_as": "",
+   "publisher": "",
+   "date": "",
+   "description": "",
+   "identifier": "",
+   "language": "ja",
+   "creators": [
+    {
+     "name": "",
+     "role": "aut",
+     "file_as": "",
+     "src": null
+    }
+   ],
+   "writing_mode": "horizontal",
+   "css": "",
+   "autolink": [
+    "url",
+    "mail"
+   ],
+   "footnote": {
+    "format": "※1",
+    "label": "脚注",
+    "heading_lines": ""
+   },
+   "endnote": {
+    "format": "(1)",
+    "label": "文末注",
+    "heading_lines": ""
+   },
+   "guess_periodicals": false,
+   "squeeze_blank_lines": false,
+   "chapter_image": "",
+   "cover_image": "",
+   "colophon": true,
+   "colophon_title": "",
+   "colophon_date_label": "",
+   "colophon_lines": ""
+  },
+  "problems": [
+   "文末注の書式「(1)」には対応していません。"
+  ],
+  "edits": [
+   {
+    "name": "nothing",
+    "change": {},
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[notes.endnote]\nformat = \"(1)\"\n\n[colophon]\n",
+    "problems": [
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   },
+   {
+    "name": "book fields",
+    "change": {
+     "title": " 新しい書名 ",
+     "publisher": "",
+     "date": "2026-10-21",
+     "language": "ja",
+     "description": "説明　"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[book]\ntitle = \"新しい書名\"\ndate = \"2026-10-21\"\ndescription = \"説明\"\n\n[notes.endnote]\nformat = \"(1)\"\n\n[colophon]\n",
+    "problems": [
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   },
+   {
+    "name": "creators",
+    "change": {
+     "creators": [
+      {
+       "name": "著者",
+       "role": "aut",
+       "file_as": "ちょしゃ",
+       "src": null
+      },
+      {
+       "name": "",
+       "role": "trl",
+       "file_as": "",
+       "src": null
+      },
+      {
+       "name": "絵",
+       "role": "ill",
+       "file_as": "",
+       "src": 1
+      }
+     ]
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[[book.creators]]\nname = \"著者\"\nrole = \"aut\"\nfile_as = \"ちょしゃ\"\n\n[[book.creators]]\nname = \"絵\"\nrole = \"ill\"\n\n[notes.endnote]\nformat = \"(1)\"\n\n[colophon]\n",
+    "problems": [
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   },
+   {
+    "name": "layout",
+    "change": {
+     "writing_mode": "horizontal",
+     "css": " style.css ",
+     "autolink": [
+      "mail",
+      "url"
+     ],
+     "guess_periodicals": false,
+     "squeeze_blank_lines": true,
+     "chapter_image": "",
+     "cover_image": "c.png"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\ncss = \"style.css\"\nsqueeze_blank_lines = true\ncover_image = \"c.png\"\n\n[notes.endnote]\nformat = \"(1)\"\n\n[colophon]\n",
+    "problems": [
+     "CSS「style.css」が見つかりません（設定ファイルの場所から見た位置で書きます）。",
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   },
+   {
+    "name": "notes",
+    "change": {
+     "footnote": {
+      "format": "none",
+      "label": "脚注",
+      "heading_lines": ""
+     },
+     "endnote": {
+      "format": "注1",
+      "label": " 後注 ",
+      "heading_lines": "＊訳注、注, 後注　他"
+     }
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[notes.footnote]\nformat = \"none\"\n\n[notes.endnote]\nformat = \"注1\"\nlabel = \"後注\"\nheading_lines = [\"＊訳注\", \"注\", \"後注\", \"他\"]\n\n[colophon]\n",
+    "problems": []
+   },
+   {
+    "name": "colophon on",
+    "change": {
+     "colophon": true,
+     "colophon_title": "",
+     "colophon_date_label": "初版",
+     "colophon_lines": "底本：あ\n\n三行目\n\n"
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[notes.endnote]\nformat = \"(1)\"\n\n[colophon]\ndate_label = \"初版\"\nlines = [\"底本：あ\", \"\", \"三行目\"]\n",
+    "problems": [
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   },
+   {
+    "name": "colophon off",
+    "change": {
+     "colophon": false
+    },
+    "dump": "# egword2epub の設定ファイル\nwriting_mode = \"horizontal\"\n\n[notes.endnote]\nformat = \"(1)\"\n",
+    "problems": [
+     "文末注の書式「(1)」には対応していません。"
+    ]
+   }
+  ]
+ }
+]
