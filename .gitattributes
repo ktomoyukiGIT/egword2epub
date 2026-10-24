@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# 改行の形を決めておくもの（Windows のバッチは CRLF、シェルの台本は LF）
+*.bat text eol=crlf
+*.sh text eol=lf

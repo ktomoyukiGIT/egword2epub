@@ -34,7 +34,7 @@ egword の書き出しテキストから、縦書きの EPUB3 を作るアプリ
 | 形 | 動く場所 | 入れるもの |
 |---|---|---|
 | [ブラウザ版](https://ktomoyukigit.github.io/egword2epub/) | パソコンやスマホ（Android など）のブラウザ | なし。開くだけ |
-| デスクトップのアプリ | Mac（Windows・Linux でも組み立てられる） | 組み立てに Rust |
+| デスクトップのアプリ | Mac・Windows・Linux | 組み立てに Rust |
 | コマンド | どこでも | 組み立てに Rust |
 
 どれも中身は同じで、同じテキストからは同じ EPUB ができます。
@@ -68,7 +68,51 @@ egword の書き出しテキストから、縦書きの EPUB3 を作るアプリ
 
    初めては 5〜15 分ほどかかります。`build/Egword2EPUB.app` ができるので、「アプリケーション」フォルダに移して使ってください。自分の Mac で組み立てたアプリなので、開発元の確認の画面は出ません。
 
-Windows・Linux でも `cargo build --release -p egword2epub-desktop` で組み立てられます（[Tauri の準備](https://v2.tauri.app/start/prerequisites/)が要ります）。
+### Windows のアプリ
+
+Windows 10・11 で組み立てられます。
+
+1. このページの緑の「Code」→「Download ZIP」で中身を落とし、展開します。
+2. [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/ja/visual-cpp-build-tools/) を入れます。インストーラーで「**C++ によるデスクトップ開発**」（Desktop development with C++）に印を付けて入れてください。
+3. Rust を入れます。[rustup のページ](https://www.rust-lang.org/ja/tools/install)から `rustup-init.exe` を落として実行し、聞かれたら Enter を押します（既定のまま入れます）。
+4. 展開したフォルダの `build_windows.bat` をダブルクリックします。
+
+   初めては 5〜15 分ほどかかります。`build\Egword2EPUB.exe` ができるので、好きな場所に置いて、ダブルクリックで起動します。テキストの「プログラムから開く」で選べば、そのテキストを開いて起動します。
+
+画面の表示には WebView2 を使います。Windows 10・11 には初めから入っています。入っていないと言われたときは、[WebView2 Runtime](https://developer.microsoft.com/ja-jp/microsoft-edge/webview2/) の「Evergreen Bootstrapper」を入れてください。
+
+Rust を前から入れていた場合は、`rustup default stable-msvc` で MSVC 用の Rust にしてから組み立ててください。
+
+### Linux のアプリ
+
+1. 組み立てに要る部品を入れます。Debian・Ubuntu では次のとおりです（ほかの配布形態は [Tauri の準備](https://v2.tauri.app/start/prerequisites/#linux)を参照）。
+
+   ```
+   sudo apt update
+   sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
+   ```
+
+   Fedora では次のとおりです。
+
+   ```
+   sudo dnf install webkit2gtk4.1-devel openssl-devel curl wget file libappindicator-gtk3-devel librsvg2-devel libxdo-devel
+   sudo dnf group install "c-development"
+   ```
+
+2. Rust を入れます。終わったら、ターミナルを一度閉じて開き直します。
+
+   ```
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+
+3. 中身を落として展開したフォルダ（または `git clone https://github.com/ktomoyukigit/egword2epub.git`）に移って、組み立てます。
+
+   ```
+   cd （展開したフォルダ）
+   ./build_linux.sh
+   ```
+
+   初めては 5〜15 分ほどかかります。`build/Egword2EPUB` ができ、アプリのメニューにも「Egword2EPUB」が加わります（`~/.local/bin/egword2epub` に置き、管理者の権限は使いません）。ターミナルからは `egword2epub 本文.txt` のように、テキストを指定して起動することもできます。
 
 ### コマンド
 
