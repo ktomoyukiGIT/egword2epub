@@ -3,7 +3,7 @@ import { EditorView } from '@codemirror/view';
 import { isolateHistory } from '@codemirror/commands';
 import { openSearchPanel } from '@codemirror/search';
 import init, * as core from '../pkg/egword_wasm.js';
-import { ask, askNumber, askText, choose, message } from './dialogs';
+import { ask, askIndentBlock, askNumber, askText, choose, message } from './dialogs';
 import { openConfigEditor } from './configform';
 import { createEditor, fontSize, fontTheme, resetDoc, setPageStarts } from './editor';
 import { Action, PALETTE } from './palette';
@@ -430,9 +430,8 @@ async function perform(a: Action) {
     }
     case 'block': wrapBlock(a.open, a.close); break;
     case 'indentBlock': {
-      const n = await askNumber('範囲の字下げ', '何字下げますか？', 2); if (n === null) return;
-      const r = await askNumber('範囲の字下げ', '折り返した行は何字下げますか？（同じでよければそのまま）', n, 0); if (r === null) return;
-      const [open, close] = core.indent_block(n, r) as [string, string];
+      const v = await askIndentBlock(); if (!v) return;
+      const [open, close] = core.indent_block(v[0], v[1] ?? undefined) as [string, string];
       wrapBlock(open, close);
       break;
     }
@@ -449,6 +448,10 @@ async function perform(a: Action) {
     case 'ruby': {
       if (selected.includes('\n')) { await message('一行の中で選んでください', 'ルビを付ける文字は、一行の中で選んでください。'); return; }
       let base = selected;
+      // すでにルビの付いた文字（見当《けんとう》・｜X《よみ》）を選んだときは、ルビを付け直す
+      const had = /^｜?([^《》｜\n]+)《[^《》]*》$/.exec(base);
+      if (had) base = had[1];
+      else if (/[《》｜]/.test(base)) { await message('ルビを付けられません', '《》や｜を含む文字には、ルビを付けられません。ルビの付いた語なら、その語だけ（よみまで）を選んでください。'); return; }
       let reading: string | null;
       if (!base) {
         const r = await ask('ルビ', [{ label: '親文字' }, { label: 'よみ' }]);
@@ -463,7 +466,9 @@ async function perform(a: Action) {
       replace(sel.from, sel.to, core.ruby(base, reading!, prev));
       break;
     }
-    case 'periodical': replace(sel.from, sel.to, `《《${selected}》》`, 2 + selected.length); break;
+    case 'periodical':
+      if (selected.includes('\n')) { await message('一行の中で選んでください', '誌名は、行をまたいで付けられません。'); return; }
+      replace(sel.from, sel.to, `《《${selected}》》`, 2 + selected.length); break;
     case 'gaiji': {
       const r = await ask('外字', [{ label: '字の説明', placeholder: '木＋世' },
                                   { label: 'Unicode の符号位置', placeholder: 'U+6318', hint: '分からなければ空のまま' }]);

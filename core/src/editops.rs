@@ -39,6 +39,12 @@ fn u16len(s: &str) -> usize { s.encode_utf16().count() }
 /// 選んだ文字に飾りを付けた文字列と、カーソルを置く位置（UTF-16）
 pub fn decorate(name: &str, selection: &str) -> (String, usize) {
     let (post, start, end) = decoration_forms(name).expect("知らない飾り");
+    // 「」や《》（ルビ）などを含むと後ろから付ける形では対象を指せないので、範囲の形にする
+    if !selection.is_empty() && selection.contains(['「', '」', '《', '》', '｜', '［', '］']) {
+        let t = format!("［＃{}］{}［＃{}］", start, selection, end);
+        let n = u16len(&t);
+        return (t, n);
+    }
     if !selection.is_empty() {
         let t = format!("{}［＃「{}」{}］", selection, selection, post);
         let n = u16len(&t);
@@ -62,13 +68,17 @@ pub fn block(open: &str, close: &str, selection: &str) -> (String, usize) {
 }
 
 pub fn indent_block(first: i64, rest: Option<i64>) -> (String, String) {
-    let mut parts = vec![format!("ここから{}字下げ", fullwidth(first))];
-    if let Some(r) = rest { if r != first { parts.push(format!("折り返して{}字下げ", fullwidth(r))); } }
+    // 一行目が 0 字（天付き）のときは「ここから改行天付き、折り返してN字下げ」
+    let mut parts = vec![if first == 0 { "ここから改行天付き".to_string() } else { format!("ここから{}字下げ", fullwidth(first)) }];
+    // 折り返しを指定したときは、一行目と同じ数でも省かずに書く
+    if let Some(r) = rest { parts.push(format!("折り返して{}字下げ", fullwidth(r))); }
     (format!("［＃{}］", parts.join("、")), "［＃ここで字下げ終わり］".into())
 }
 
 pub fn gaiji(description: &str, code: &str) -> String {
-    let c = code.trim().to_uppercase().replace("U+", "");
+    // 全角で書いた符号位置（Ｕ＋６３１８ など）も読む
+    let half: String = code.trim().chars().map(|c| match c as u32 { 0xFF01..=0xFF5E => char::from_u32(c as u32 - 0xFEE0).unwrap(), _ => c }).collect();
+    let c = half.to_uppercase().replace("U+", "");
     if c.is_empty() { format!("※［＃「{}」］", description) } else { format!("※［＃「{}」、U+{}］", description, c) }
 }
 
@@ -82,7 +92,7 @@ pub fn opener(img: &str, title: &str) -> String {
 }
 
 pub fn separator(style: &str) -> String {
-    if style.is_empty() || style == "実線" { "［＃区切り線］".into() } else { format!("［＃区切り線（{}）］", style) }
+    if style.is_empty() { "［＃区切り線］".into() } else { format!("［＃区切り線（{}）］", style) }
 }
 
 /// 各頁の始まりの行番号（1 から）

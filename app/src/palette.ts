@@ -48,6 +48,6 @@ export const PALETTE: Section[] = [
   { title: '図版・区切り', items: [
     { label: '図…', hint: '画像を図版として置く。説明を付けられる（「／」で改行）。', action: { t: 'figure' } },
     ...['実線', '破線', '点線', '二重線'].map((s) => ({ label: `区切り線（${s}）`, hint: '一行の区切り線。',
-      action: { t: 'line' as const, s: s === '実線' ? '［＃区切り線］' : `［＃区切り線（${s}）］` } })),
+      action: { t: 'line' as const, s: `［＃区切り線（${s}）］` } })),
   ] },
 ];

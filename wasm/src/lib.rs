@@ -151,7 +151,7 @@ pub fn decorate(name: &str, selection: &str) -> JsValue { to_js(&editops::decora
 #[wasm_bindgen]
 pub fn block(open: &str, close: &str, selection: &str) -> JsValue { to_js(&editops::block(open, close, selection)) }
 #[wasm_bindgen]
-pub fn indent_block(first: i32, rest: i32) -> JsValue { to_js(&editops::indent_block(first as i64, Some(rest as i64))) }
+pub fn indent_block(first: i32, rest: Option<i32>) -> JsValue { to_js(&editops::indent_block(first as i64, rest.map(|r| r as i64))) }
 #[wasm_bindgen] pub fn gaiji(description: &str, code: &str) -> String { editops::gaiji(description, code) }
 #[wasm_bindgen] pub fn figure(img: &str, caption: &str) -> String { editops::figure(img, caption) }
 #[wasm_bindgen] pub fn opener(img: &str, title: &str) -> String { editops::opener(img, title) }

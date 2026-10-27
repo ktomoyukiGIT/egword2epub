@@ -37,7 +37,22 @@ export function ask(title: string, fields: Field[], okLabel = 'OK'): Promise<str
     let done = false;
     const finish = (v: string[] | null) => { if (done) return; done = true; d.close(); d.remove(); resolve(v); };
     cancel.addEventListener('click', () => finish(null));
-    form.addEventListener('submit', (e) => { e.preventDefault(); finish(inputs.map((i) => i.value)); });
+    // 日本語入力の変換を確定する Enter で、窓が閉じてしまわないように（Safari・Mac のアプリでは、確定の直後に送信が来る）
+    let composing = false;
+    let compositionEnded = 0;
+    for (const i of inputs) {
+      i.addEventListener('compositionstart', () => { composing = true; });
+      i.addEventListener('compositionend', () => { composing = false; compositionEnded = Date.now(); });
+      i.addEventListener('keydown', (e) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === 'Enter' && (ke.isComposing || ke.keyCode === 229 || composing || Date.now() - compositionEnded < 120)) ke.preventDefault();
+      });
+    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (composing || Date.now() - compositionEnded < 120) return;
+      finish(inputs.map((i) => i.value));
+    });
     d.addEventListener('cancel', (e) => { e.preventDefault(); finish(null); });
     d.showModal();
     inputs[0]?.focus();
@@ -50,14 +65,38 @@ export async function askText(title: string, label: string, value = '', hint = '
   return r ? r[0] : null;
 }
 
+/** 全角の数字も読む。読めなければ NaN */
+export function readNumber(s: string): number {
+  const t = s.trim().replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0));
+  return /^\d+$/.test(t) ? parseInt(t, 10) : NaN;
+}
+
 /** 数を尋ねる（全角の数字でもよい） */
 export async function askNumber(title: string, label: string, value: number, min = 1): Promise<number | null> {
   while (true) {
     const s = await askText(title, label, String(value));
     if (s === null) return null;
-    const n = parseInt(s.trim().replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)), 10);
+    const n = readNumber(s);
     if (!isNaN(n) && n >= min && n <= 40) return n;
     await message('数を入れてください', `${min} から 40 までの数を入れてください。`);
+  }
+}
+
+/** 範囲の字下げの数を、一つの窓で尋ねる。[一行目, 折り返し（空なら null）] */
+export async function askIndentBlock(): Promise<[number, number | null] | null> {
+  let first = '２', rest = '';
+  while (true) {
+    const r = await ask('範囲の字下げ', [
+      { label: '何字下げますか？', value: first },
+      { label: '折り返した行は何字下げますか？', value: rest, placeholder: '空なら書かない（上と同じ）', hint: '例：一行目は２字、折り返しは３字なら「２」と「３」。入れた数は、上と同じでもそのまま書きます。一行目を天付きにするなら上を「０」' },
+    ]);
+    if (!r) return null;
+    [first, rest] = r;
+    const n = readNumber(first);
+    const empty = rest.trim() === '';
+    const m = empty ? n : readNumber(rest);
+    if (!isNaN(n) && !isNaN(m) && n >= 0 && m >= 0 && n <= 40 && m <= 40 && n + m > 0) return [n, empty ? null : m];
+    await message('数を入れてください', '0 から 40 までの数を入れてください。');
   }
 }
 

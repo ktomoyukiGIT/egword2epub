@@ -225,9 +225,15 @@ fn editops() {
     assert_eq!(ruby("𠮟", "しつ", ""), "𠮟《しつ》");
     assert_eq!(decorate("傍点", "強調"), ("強調［＃「強調」に傍点］".into(), 12));
     assert_eq!(decorate("太字", ""), ("［＃太字］［＃太字終わり］".into(), 5));
+    assert_eq!(decorate("傍点", "「行く」").0, "［＃傍点］「行く」［＃傍点終わり］");
+    assert_eq!(decorate("傍点", "見当《けんとう》").0, "［＃傍点］見当《けんとう》［＃傍点終わり］");
+    assert_eq!(indent_block(2, Some(2)).0, "［＃ここから２字下げ、折り返して２字下げ］");
+    assert_eq!(indent_block(2, None).0, "［＃ここから２字下げ］");
+    assert_eq!(gaiji("木＋世", "Ｕ＋６３１８"), "※［＃「木＋世」、U+6318］");
     assert_eq!(decorate("１段階小さな文字", "x").0, "x［＃「x」は１段階小さな文字］");
     assert_eq!(block("［＃A］", "［＃B］", "a\nb").0, "［＃A］\na\nb\n［＃B］\n");
     assert_eq!(indent_block(12, Some(3)).0, "［＃ここから１２字下げ、折り返して３字下げ］");
+    assert_eq!(indent_block(0, Some(2)).0, "［＃ここから改行天付き、折り返して２字下げ］");
     assert_eq!(gaiji("木＋世", "u+6318"), "※［＃「木＋世」、U+6318］");
     let text = "p1\n\u{0C}\np2 a\np2 b\n［＃改ページ］\np3 「探す」語\n";
     let starts = page_start_lines(text);
