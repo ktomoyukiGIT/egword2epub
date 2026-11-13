@@ -100,7 +100,8 @@ pub fn wrap(nodes: &[Node], a: usize, b: usize, cls: &str) -> Vec<Node> {
 
 #[derive(Clone, Debug)]
 pub enum Block {
-    Para { nodes: Vec<Node>, style: String, tail: String, cls: String },
+    /// tail：文字列の末尾の地付き・字上げ（本文［＃地付き］署名）の後ろの部分と、上げる字数
+    Para { nodes: Vec<Node>, style: String, tail: Option<(Vec<Node>, i64)>, cls: String },
     Yoko { nodes: Vec<Node>, indent: i64, align: String, right: i64 },
     Blank,
     Div { cls: String, children: Vec<Block> },

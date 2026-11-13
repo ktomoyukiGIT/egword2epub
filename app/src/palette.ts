@@ -5,7 +5,8 @@ export type Action =
   | { t: 'prefix'; s: string }               // 選んだ行の頭に付ける
   | { t: 'decorate'; name: string }          // 文字の飾り
   | { t: 'block'; open: string; close: string }
-  | { t: 'opener' } | { t: 'chapter' } | { t: 'indent' } | { t: 'raise' } | { t: 'indentBlock' }
+  | { t: 'here'; s: string }                 // カーソルの位置に入れる（選んでいれば、その前に）
+  | { t: 'opener' } | { t: 'chapter' } | { t: 'indent' } | { t: 'raise' } | { t: 'raiseHere' } | { t: 'raiseBlock' } | { t: 'indentBlock' }
   | { t: 'ruby' } | { t: 'periodical' } | { t: 'gaiji' } | { t: 'figure' };
 
 export interface Item { label: string; hint: string; action: Action; key?: string }
@@ -39,10 +40,13 @@ export const PALETTE: Section[] = [
     { label: '地付き', hint: '行を地付きに。', action: { t: 'prefix', s: '［＃地付き］' } },
     { label: '地から字上げ…', hint: '地付きにして N 字上げる。', action: { t: 'raise' } },
     { label: '中央揃え', hint: '行を中央揃えに（縦書きでは天地の中央）。', action: { t: 'prefix', s: '［＃中央揃え］' } },
+    { label: 'ここから後ろを地付き', hint: 'カーソルの位置に ［＃地付き］。行の後ろの部分（署名・日付など）だけを地に寄せる。入らなければ次の行の地に。', action: { t: 'here', s: '［＃地付き］' } },
+    { label: 'ここから後ろを字上げ…', hint: 'カーソルの位置に ［＃地からN字上げ］。行の後ろの部分だけを地に寄せて N 字上げる。', action: { t: 'raiseHere' } },
   ] },
   { title: '範囲', items: [
     { label: '範囲の字下げ…', hint: '選んだ行を ［＃ここからN字下げ］…［＃ここで字下げ終わり］ で囲む。', action: { t: 'indentBlock' } },
     blk('範囲の地付き', '［＃ここから地付き］', '［＃ここで地付き終わり］', '選んだ行を地付きに。'),
+    { label: '範囲の字上げ（地寄せ）…', hint: '選んだ行を ［＃ここから地からN字上げ］…［＃ここで字上げ終わり］ で囲む。地に寄せて N 字上げる。', action: { t: 'raiseBlock' } },
     blk('範囲の中央揃え', '［＃ここから中央揃え］', '［＃ここで中央揃え終わり］', '選んだ行を中央揃えに。'),
     blk('範囲の１段階小さな文字', '［＃ここから１段階小さな文字］', '［＃ここで小さな文字終わり］', '選んだ行の文字を小さく。'),
     blk('範囲の１段階大きな文字', '［＃ここから１段階大きな文字］', '［＃ここで大きな文字終わり］', '選んだ行の文字を大きく。'),

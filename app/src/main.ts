@@ -445,6 +445,17 @@ async function perform(a: Action) {
       addPrefix(`［＃地から${core.fullwidth(n)}字上げ］`);
       break;
     }
+    case 'here': replace(sel.from, sel.from, a.s); break;
+    case 'raiseHere': {
+      const n = await askNumber('ここから後ろを字上げ', '地から何字上げますか？', 2); if (n === null) return;
+      replace(sel.from, sel.from, `［＃地から${core.fullwidth(n)}字上げ］`);
+      break;
+    }
+    case 'raiseBlock': {
+      const n = await askNumber('範囲の字上げ', '地から何字上げますか？', 2); if (n === null) return;
+      wrapBlock(`［＃ここから地から${core.fullwidth(n)}字上げ］`, '［＃ここで字上げ終わり］');
+      break;
+    }
     case 'ruby': {
       if (selected.includes('\n')) { await message('一行の中で選んでください', 'ルビを付ける文字は、一行の中で選んでください。'); return; }
       let base = selected;

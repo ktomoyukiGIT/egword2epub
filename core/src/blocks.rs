@@ -22,6 +22,8 @@ static SPEC_BOTTOM: LazyLock<Rx> = LazyLock::new(|| Rx::new(&format!("地から{
 static MARK_COMBO: LazyLock<Rx> = LazyLock::new(|| Rx::new("［＃([^］「]*、[^］]*)］"));
 static MARK_ONE: LazyLock<Rx> = LazyLock::new(|| Rx::new(&format!("［＃(地付き|地から{}字上げ|(?:天から)?{}字下げ)］", N, N)));
 static MARK_END: LazyLock<Rx> = LazyLock::new(|| Rx::new("［＃地付き］$"));
+/// 行の途中の地付き・字上げ（「文字列の末尾」の形。後ろの部分だけを地に寄せる）
+static MARK_MID: LazyLock<Rx> = LazyLock::new(|| Rx::new(&format!("［＃(?:地付き|地から{}字上げ)］", N)));
 static TRAIL_SPACE: LazyLock<Rx> = LazyLock::new(|| Rx::new("　+$"));
 static SEP_LEN: LazyLock<Rx> = LazyLock::new(|| Rx::new("([０-９\\d]+)字"));
 static ALT_RUBY: LazyLock<Rx> = LazyLock::new(|| Rx::new("《[^》]*》"));
@@ -67,6 +69,9 @@ pub fn parse_block_spec(spec: &str, mut ctx: Option<&mut Context>) -> BlockSpec 
             c.warn(format!("注記の中の「{}」は読めないので無視した（［＃{}］）", part, spec));
         }
     }
+    // 字上げだけの指定（［＃ここから地から２字上げ］）は地寄せ（地に寄せて二字上げる）。
+    // 字下げと組み合わせたもの（２字下げ、地から２字上げ）は字詰めの指定なので、地には寄せない
+    if d.bottom.is_some() && d.first.is_none() && d.wrap.is_none() { d.end = true; }
     d
 }
 
@@ -143,7 +148,20 @@ pub fn parse_para(ctx: &mut Context, line0: &str, block0: Option<&BlockSpec>, cl
     if let Some(b) = block.bottom { if b != 0 { st.push_str(&format!("margin-bottom:{}em;", b)); } }
     st.push_str(&format!("text-indent:{}em;", ti));
     let cls = [cls0, block.size.as_deref().unwrap_or("")].iter().filter(|c| !c.is_empty()).cloned().collect::<Vec<_>>().join(" ");
-    Block::Para { nodes: parse_inline(ctx, line), style: st, tail: String::new(), cls }
+    // 文字列の末尾の地付き・字上げ：注記の後ろだけを地に寄せる（署名・日付など）
+    let (head, tail) = split_end_tail(line);
+    let tail = tail.map(|(t, up)| (parse_inline(ctx, t), up));
+    Block::Para { nodes: parse_inline(ctx, head), style: st, tail, cls }
+}
+
+/// 行の途中の［＃地付き］［＃地から○字上げ］で、前と後ろに分ける（後ろと上げる字数）。
+/// 前か後ろが空なら分けない（行頭・行末の注記は line_marks が受け持つ）
+fn split_end_tail(line: &str) -> (&str, Option<(&str, i64)>) {
+    let Some(m) = MARK_MID.search(line) else { return (line, None) };
+    let (head, tail) = (&line[..start(&m)], &line[end(&m)..]);
+    if py_strip(head).is_empty() || py_strip(tail).is_empty() { return (line, None); }
+    let up = g(&m, 1).map(num).unwrap_or(0);
+    (py_rstrip(head), Some((py_strip(tail), up)))
 }
 
 fn parse_yoko(ctx: &mut Context, line0: &str) -> Block {
@@ -181,7 +199,8 @@ fn parse_figure(ctx: &mut Context, fname: &str, cap: Option<&str>) -> Block {
 }
 
 fn parse_heading(ctx: &mut Context, level: i64, line: &str, block: Option<&BlockSpec>) -> Block {
-    let Block::Para { nodes, style, .. } = parse_para(ctx, line, block, "") else { unreachable!() };
+    let Block::Para { mut nodes, style, tail, .. } = parse_para(ctx, line, block, "") else { unreachable!() };
+    if let Some((t, _)) = tail { nodes.extend(t); } // 見出しでは地に寄せない
     let anchor = ctx.add_heading(level, plain_title(line));
     Block::Heading { level, nodes, style, anchor }
 }
@@ -280,7 +299,16 @@ pub fn render_block(ctx: &mut Context, b: &Block, rp: RenderPos) -> String {
     match b {
         Block::Para { nodes, style: st, tail, cls } => {
             let body = render_inline(ctx, nodes, rp);
-            if py_strip(&body).is_empty() { return BLANK.into(); }
+            if py_strip(&body).is_empty() && tail.is_none() { return BLANK.into(); }
+            // 文字列の末尾の地付き・字上げ：後ろの部分を地に寄せる span（CSS の .chi-line・.chi-end）
+            let (cls, tail) = match tail {
+                None => (cls.clone(), String::new()),
+                Some((t, up)) => {
+                    let up = if *up != 0 { format!(" style=\"{}\"", style(ctx, &format!("margin-bottom:{}em;", up))) } else { String::new() };
+                    let c = if cls.is_empty() { "chi-line".to_string() } else { format!("{} chi-line", cls) };
+                    (c, format!("<span class=\"chi-end\"{}>{}</span>", up, render_inline(ctx, t, rp)))
+                }
+            };
             let c = if cls.is_empty() { String::new() } else { format!(" class=\"{}\"", cls) };
             format!("<p{} style=\"{}\">{}{}</p>", c, style(ctx, st), body, tail)
         }

@@ -65,3 +65,10 @@ h4.ko-midashi { font-size: 1.05em; margin-left: 1em; }
 /* 割注（［＃割り注］右の行［＃改行］左の行［＃割り注終わり］）：小さな字の2行を行の中に入れる */
 .warichu { display: inline-block; font-size: 0.5em; line-height: 1.2; vertical-align: -50%; text-indent: 0; margin: 0 0.15em; }
 .warichu .wr { display: block; }
+/* 文字列の末尾の地付き・字上げ（本文［＃地付き］署名）：後ろの部分を同じ行の地に寄せる。
+   入らなければ次の行の地に。float に対応しないアプリでは、次の行の地に置かれる */
+.chi-end { display: block; text-align: end; text-indent: 0; }
+@supports (display: flow-root) {
+  p.chi-line { display: flow-root; }
+  p.chi-line .chi-end { float: right; }
+}
