@@ -15,6 +15,45 @@ pub static SIZE_RE: LazyLock<Rx> = LazyLock::new(|| Rx::new(SIZE_PATTERN));
 static GAIJI_UCS_RE: LazyLock<Rx> = LazyLock::new(|| Rx::new("U\\+([0-9A-Fa-f]{4,6})"));
 static TAG_SPLIT: LazyLock<Rx> = LazyLock::new(|| Rx::new("(<[^>]+>)"));
 
+/// 割注の中の改行（［＃改行］）を表す一字。割注を閉じるときに右の行と左の行に分ける
+const WARI_BREAK: char = '\u{E000}';
+
+/// 割注（［＃割り注］…［＃割り注終わり］）の中身を、右の行と左の行（Span "wr"）に分ける。
+/// ［＃改行］があればそこで、なければ字数の半分で分ける
+fn warichu(children: Vec<Node>) -> Vec<Node> {
+    let p = plain(&children);
+    let (a, mut b) = match p.find(WARI_BREAK) {
+        Some(k) => {
+            let (a, rest) = split_at(&children, k);
+            let (_, b) = split_at(&rest, WARI_BREAK.len_utf8());
+            (a, b)
+        }
+        None => {
+            let n = p.chars().count();
+            let k = p.char_indices().nth(n.div_ceil(2)).map_or(p.len(), |(i, _)| i);
+            split_at(&children, k)
+        }
+    };
+    strip_breaks(&mut b);
+    vec![Node::Span("wr".into(), a), Node::Span("wr".into(), b)]
+}
+
+/// 残った割注の改行の印を取り除く。取り除いたら true
+fn strip_breaks(nodes: &mut Vec<Node>) -> bool {
+    let mut found = false;
+    for n in nodes.iter_mut() {
+        match n {
+            Node::Text(s) if s.contains(WARI_BREAK) => {
+                *s = s.replace(WARI_BREAK, "");
+                found = true;
+            }
+            Node::Span(_, c) | Node::Ruby(c, _) => found |= strip_breaks(c),
+            _ => {}
+        }
+    }
+    found
+}
+
 fn size_end(body: &str) -> Option<&'static str> {
     match body { "小さな文字終わり" => Some("小さな文字"), "大きな文字終わり" => Some("大きな文字"), _ => None }
 }
@@ -97,7 +136,9 @@ fn resolve_ranges(ctx: &mut Context, nodes: Vec<Node>) -> Vec<Node> {
                     continue;
                 }
                 let (_, cls, mut outer) = stack.pop().unwrap();
-                outer.push(Node::Span(cls, std::mem::take(&mut out)));
+                let inner = std::mem::take(&mut out);
+                let inner = if cls == "warichu" { warichu(inner) } else { inner };
+                outer.push(Node::Span(cls, inner));
                 out = outer;
             }
         } else {
@@ -133,6 +174,14 @@ fn annotation(ctx: &mut Context, mut nodes: Vec<Node>, body: &str) -> Vec<Node> 
             return nodes;
         }
     }
+    if body == "割り注" {
+        nodes.push(Node::RangeMark { key: body.to_string(), open: true, cls: "warichu".into() });
+        return nodes;
+    }
+    if body == "改行" {
+        push_text(&mut nodes, &WARI_BREAK.to_string());
+        return nodes;
+    }
     if let Some(cls) = decoration_class(body) {
         let key = if decoration(body).is_none() {
             format!("{}文字", g(&SIZE_RE.fullmatch(body).unwrap(), 2).unwrap())
@@ -142,7 +191,7 @@ fn annotation(ctx: &mut Context, mut nodes: Vec<Node>, body: &str) -> Vec<Node> 
     }
     if let Some(stem) = body.strip_suffix("終わり") {
         let key = size_end(body).unwrap_or(stem);
-        if decoration(key).is_some() || key == "小さな文字" || key == "大きな文字" {
+        if decoration(key).is_some() || key == "小さな文字" || key == "大きな文字" || key == "割り注" {
             nodes.push(Node::RangeMark { key: key.to_string(), open: false, cls: String::new() });
             return nodes;
         }
@@ -209,7 +258,11 @@ pub fn parse_inline(ctx: &mut Context, text: &str) -> Vec<Node> {
         }
     }
     push_text(&mut nodes, &text[pos..]);
-    resolve_ranges(ctx, nodes)
+    let mut nodes = resolve_ranges(ctx, nodes);
+    if strip_breaks(&mut nodes) {
+        ctx.warn("［＃改行］は割注（［＃割り注］…［＃割り注終わり］）の中でだけ使える（取り除いた）");
+    }
+    nodes
 }
 
 // ---------------------------------------------------------------- 生成

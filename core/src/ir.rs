@@ -60,6 +60,11 @@ fn cut(nodes: &[Node], k: usize, down: bool) -> (Vec<Node>, Vec<Node>) {
     (left, Vec::new())
 }
 
+/// 素の文字列の位置 k で並びを二つに分ける（ルビの途中なら、ルビは右に入れる）
+pub fn split_at(nodes: &[Node], k: usize) -> (Vec<Node>, Vec<Node>) {
+    cut(nodes, k, true)
+}
+
 /// 素の文字列の範囲 [a, b) を Span(cls) で包む
 pub fn wrap(nodes: &[Node], a: usize, b: usize, cls: &str) -> Vec<Node> {
     let mut o = 0;

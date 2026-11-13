@@ -29,6 +29,7 @@ pub fn decoration_forms(name: &str) -> Option<(String, String, String)> {
         "太字" | "斜体" | "縦中横" | "大見出し" | "中見出し" | "小見出し" => (format!("は{}", name), format!("{}終わり", name)),
         "１段階小さな文字" | "２段階小さな文字" => (format!("は{}", name), "小さな文字終わり".into()),
         "１段階大きな文字" | "２段階大きな文字" => (format!("は{}", name), "大きな文字終わり".into()),
+        "割り注" => (format!("は{}", name), "割り注終わり".into()),
         _ => return None,
     };
     Some((post, name.to_string(), end))
@@ -40,7 +41,8 @@ fn u16len(s: &str) -> usize { s.encode_utf16().count() }
 pub fn decorate(name: &str, selection: &str) -> (String, usize) {
     let (post, start, end) = decoration_forms(name).expect("知らない飾り");
     // 「」や《》（ルビ）などを含むと後ろから付ける形では対象を指せないので、範囲の形にする
-    if !selection.is_empty() && selection.contains(['「', '」', '《', '》', '｜', '［', '］']) {
+    // 割注は範囲の形だけ（後ろから付ける形はない）
+    if !selection.is_empty() && (name == "割り注" || selection.contains(['「', '」', '《', '》', '｜', '［', '］'])) {
         let t = format!("［＃{}］{}［＃{}］", start, selection, end);
         let n = u16len(&t);
         return (t, n);

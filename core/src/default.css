@@ -62,3 +62,6 @@ h4.ko-midashi { font-size: 1.05em; margin-left: 1em; }
 .colophon { margin-right: 2em; }
 .colophon p { text-indent: 0; }
 .colophon p.col-title { font-weight: bold; font-size: 1.1em; margin-left: 1em; }
+/* 割注（［＃割り注］右の行［＃改行］左の行［＃割り注終わり］）：小さな字の2行を行の中に入れる */
+.warichu { display: inline-block; font-size: 0.5em; line-height: 1.2; vertical-align: middle; text-indent: 0; margin: 0 0.15em; }
+.warichu .wr { display: block; }
